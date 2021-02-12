@@ -31,7 +31,7 @@ public class CardController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (backFace.activeSelf && !gameController.isGamePaused)
+        if (backFace.activeSelf && !gameController.isGamePaused && gameController.canFlip)
         {
             backFace.SetActive(false);
             gameController.CardRevealed(this);

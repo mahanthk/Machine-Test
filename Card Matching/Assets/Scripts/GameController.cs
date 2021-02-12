@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public const float colOffset = 2.5f;
     public const float rowOffset = 3f;
     public bool isGamePaused = false;
+    public bool canFlip;
 
     private int remainingMatches = 7;
     [SerializeField]
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canFlip = true;
         panelWin.SetActive(false);
         panelPause.SetActive(false);
         remainingMatchesText.text = "Remaining Matches: " + remainingMatches;
@@ -95,6 +97,7 @@ public class GameController : MonoBehaviour
     CardController thirdCard;
     private bool secondCardMatch;
     private bool thirdCardMatch;
+
     public void CardRevealed(CardController card)
     {
         if(firstCard == null)
@@ -128,9 +131,11 @@ public class GameController : MonoBehaviour
             Debug.Log("Second card is not matched");
             secondCardMatch = false;
             thirdCardMatch = false;
+            canFlip = false;
             yield return new WaitForSeconds(0.3f);
             firstCard.UnrevealCard();
             secondCard.UnrevealCard();
+            canFlip = true;
             firstCard = null;
             secondCard = null;
         }
@@ -154,10 +159,12 @@ public class GameController : MonoBehaviour
             Debug.Log("Third card is not matched");
             secondCardMatch = false;
             thirdCardMatch = false;
+            canFlip = false;
             yield return new WaitForSeconds(0.3f);
             secondCard.UnrevealCard();
             thirdCard.UnrevealCard();
             firstCard.UnrevealCard();
+            canFlip = true;
             /*firstCard = null;
             secondCard = null;
             thirdCard = null;*/
